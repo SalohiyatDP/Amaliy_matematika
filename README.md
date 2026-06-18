@@ -102,24 +102,26 @@ Amaliy_matematika/
 
 ## 📌 Hozirgi holat
 
-Loyiha faol ishlab chiqilmoqda. Quyidagilar tayyor:
+Ilova **to'liq ishlaydi** (frontend). Tayyor:
 
 - ✅ Loyiha skeleti va konfiguratsiya (Vite, TS, Tailwind)
-- ✅ Dizayn tizimi va global stillar (dark/light)
+- ✅ Dizayn tizimi, dark/light rejim, mobile-first responsive
 - ✅ To'plam amallari kutubxonasi (`lib/sets.ts`)
-- ✅ Gamifikatsiya mantiqi (XP, darajalar, nishonlar)
-- ✅ Offline progress saqlash qatlami
-- ✅ Asosiy komponentlar: Venn diagramma, Quiz, Drag-and-drop, Venn playground
+- ✅ Gamifikatsiya: XP, darajalar, nishonlar, streak
+- ✅ Offline progress saqlash (localStorage) + eksport
+- ✅ 8 modulli to'liq o'quv dasturi (darslar, quizlar, bob testlari)
+- ✅ Sahifalar: Onboarding, Dashboard, Modullar, Dars ko'rish, Mashqxona, AI Repetitor, Imtihon, Yutuqlar, Reyting, Profil
+- ✅ Interaktiv: Venn diagramma, Venn playground, drag-and-drop, rostlik jadvali generatori
+- ✅ AI Repetitor (qoidaga asoslangan) + cheksiz mashq generatori
+- ✅ Yakuniy imtihon + sertifikat generatsiyasi
 
-Rejalashtirilgan (keyingi bosqich):
+Keyingi bosqich (rejada):
 
-- ⏳ `App.tsx` va sahifalar (Dashboard, Modullar, Mashq, Imtihon, Reyting)
-- ⏳ To'liq o'quv dasturi kontenti (`data/curriculum.ts`)
-- ⏳ AI Tutor va mashq generatori
-- ⏳ Sertifikat generatsiyasi
-- ⏳ Backend (Node.js + Express + PostgreSQL), Google autentifikatsiya, ko'p qurilmali sinxronizatsiya
+- ⏳ Backend (Node.js + Express + PostgreSQL)
+- ⏳ Google autentifikatsiya, ko'p qurilmali real sinxronizatsiya
+- ⏳ Real foydalanuvchilar reytingi
 
-> Eslatma: Sahifalar va o'quv dasturi kontenti qo'shilmaguncha ilova `npm run dev` bilan to'liq ishlamaydi. Joriy commit poydevor bosqichini saqlaydi.
+> Ishga tushirish: `npm install` → `npm run dev` → http://localhost:5173
 
 ---
 
