@@ -17,8 +17,14 @@ const NAV = [
 ];
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const { state, toggleTheme, newBadges, clearNewBadges, addStudyTime } = useApp();
+  const { state, toggleTheme, newBadges, clearNewBadges, addStudyTime, markActiveToday } =
+    useApp();
   const location = useLocation();
+
+  // Mark today as active when the app opens (keeps daily streak alive)
+  useEffect(() => {
+    markActiveToday();
+  }, [markActiveToday]);
 
   // study-time tracker
   useEffect(() => {

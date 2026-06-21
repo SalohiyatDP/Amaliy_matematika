@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useApp } from "../context/AppContext";
 import { getModule } from "../data/curriculum";
@@ -14,6 +14,7 @@ type View = { kind: "list" } | { kind: "lesson"; lesson: Lesson } | { kind: "tes
 export default function ModuleDetail() {
   const { moduleId = "" } = useParams();
   const mod = getModule(moduleId);
+  const navigate = useNavigate();
   const { state, recordLesson, recordModuleTest } = useApp();
   const [view, setView] = useState<View>({ kind: "list" });
   const [showQuiz, setShowQuiz] = useState(false);
@@ -35,15 +36,29 @@ export default function ModuleDetail() {
   // ---- Lesson view ----
   if (view.kind === "lesson") {
     const lesson = view.lesson;
+    const lessonIdx = mod.lessons.findIndex((l) => l.id === lesson.id);
+    const nextLesson =
+      lessonIdx >= 0 && lessonIdx < mod.lessons.length - 1
+        ? mod.lessons[lessonIdx + 1]
+        : null;
+
+    const goToList = () => {
+      setView({ kind: "list" });
+      setShowQuiz(false);
+    };
+    const goToNext = () => {
+      if (nextLesson) {
+        setView({ kind: "lesson", lesson: nextLesson });
+        setShowQuiz(false);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        goToList();
+      }
+    };
+
     return (
       <div className="space-y-5">
-        <button
-          onClick={() => {
-            setView({ kind: "list" });
-            setShowQuiz(false);
-          }}
-          className="btn-ghost text-sm"
-        >
+        <button onClick={goToList} className="btn-ghost text-sm">
           ← {mod.title}
         </button>
 
@@ -95,6 +110,8 @@ export default function ModuleDetail() {
                 baseXp: lesson.xp,
               })
             }
+            onExit={goToNext}
+            exitLabel={nextLesson ? "Keyingi dars →" : "Modulga qaytish"}
           />
         )}
       </div>
@@ -118,6 +135,8 @@ export default function ModuleDetail() {
           title="Bob testi"
           questions={mod.test}
           onComplete={(percent) => recordModuleTest(mod.id, percent)}
+          onExit={() => setView({ kind: "list" })}
+          exitLabel="Modulga qaytish"
         />
       </div>
     );
@@ -126,7 +145,7 @@ export default function ModuleDetail() {
   // ---- Lesson list view ----
   return (
     <div className="space-y-6">
-      <button onClick={() => history.back()} className="btn-ghost text-sm">
+      <button onClick={() => navigate("/modules")} className="btn-ghost text-sm">
         ← Orqaga
       </button>
 

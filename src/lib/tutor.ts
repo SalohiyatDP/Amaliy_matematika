@@ -62,7 +62,7 @@ interface TutorReply {
 
 const KB: { keys: string[]; reply: TutorReply }[] = [
   {
-    keys: ["birlashma", "union", "∪", "u"],
+    keys: ["birlashma", "union", "∪"],
     reply: {
       text: "Birlashma (A ∪ B) — A yoki B (yoki ikkalasi) ga tegishli barcha elementlar to'plami. Takror elementlar bir marta yoziladi.",
       expression: "A ∪ B = {x | x ∈ A yoki x ∈ B}",
@@ -122,6 +122,20 @@ const KB: { keys: string[]; reply: TutorReply }[] = [
     reply: {
       text: "Simmetrik ayirma (A △ B) — faqat bittasiga tegishli elementlar (ikkalasiga emas).",
       expression: "A △ B = (A − B) ∪ (B − A)",
+    },
+  },
+  {
+    keys: ["dekart", "cartesian", "ko'paytma", "kopaytma", "tartiblangan", "×"],
+    reply: {
+      text: "Dekart ko'paytmasi (A × B) — birinchi komponenti A dan, ikkinchisi B dan olingan barcha tartiblangan juftliklar to'plami. Elementlar soni: |A × B| = |A|·|B|.",
+      expression: "A × B = {(a, b) | a ∈ A va b ∈ B}",
+    },
+  },
+  {
+    keys: ["sonlar", "natural", "butun", "ratsional", "haqiqiy", "ℕ", "ℤ", "ℚ", "ℝ"],
+    reply: {
+      text: "Asosiy sonlar to'plamlari: ℕ (natural), ℤ (butun), ℚ (ratsional), ℝ (haqiqiy). Ular ichma-ich joylashgan: ℕ ⊂ ℤ ⊂ ℚ ⊂ ℝ.",
+      expression: "ℕ ⊂ ℤ ⊂ ℚ ⊂ ℝ",
     },
   },
 ];

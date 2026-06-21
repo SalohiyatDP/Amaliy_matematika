@@ -12,6 +12,9 @@ interface QuizProps {
   onComplete?: (percent: number, weak: string[]) => void;
   /** instant feedback shows explanation right after answering */
   instantFeedback?: boolean;
+  /** optional action button shown on the results screen */
+  onExit?: () => void;
+  exitLabel?: string;
 }
 
 function isCorrect(q: Question, response: number[] | string): boolean {
@@ -40,6 +43,8 @@ export default function Quiz({
   title,
   onComplete,
   instantFeedback = true,
+  onExit,
+  exitLabel = "Davom etish",
 }: QuizProps) {
   const [idx, setIdx] = useState(0);
   const [selected, setSelected] = useState<number[]>([]);
@@ -112,6 +117,11 @@ export default function Quiz({
         <div className="mx-auto mt-4 max-w-xs">
           <ProgressBar value={percent / 100} showLabel />
         </div>
+        {onExit && (
+          <button onClick={onExit} className="btn-primary mt-5">
+            {exitLabel}
+          </button>
+        )}
       </motion.div>
     );
   }

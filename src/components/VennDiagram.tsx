@@ -1,3 +1,4 @@
+import { useId } from "react";
 import { motion } from "framer-motion";
 import type { VennPreset } from "../types";
 
@@ -45,6 +46,8 @@ export default function VennDiagram({
   fill = HL,
   animate = true,
 }: VennDiagramProps) {
+  // Unique id prefix so multiple diagrams on one page never collide (SVG defs are global).
+  const uid = useId().replace(/:/g, "");
   const isThree = preset.startsWith("three");
 
   if (isThree) {
@@ -81,21 +84,21 @@ export default function VennDiagram({
     >
       <defs>
         {/* intersection clip */}
-        <clipPath id={`clipB-${preset}`}>
+        <clipPath id={`clipB-${uid}`}>
           <circle cx={cBx} cy={cy} r={r.b} />
         </clipPath>
-        <clipPath id={`clipA-${preset}`}>
+        <clipPath id={`clipA-${uid}`}>
           <circle cx={cAx} cy={cy} r={r.a} />
         </clipPath>
-        <mask id={`notB-${preset}`}>
+        <mask id={`notB-${uid}`}>
           <rect x="0" y="0" width="260" height="180" fill="white" />
           <circle cx={cBx} cy={cy} r={r.b} fill="black" />
         </mask>
-        <mask id={`notA-${preset}`}>
+        <mask id={`notA-${uid}`}>
           <rect x="0" y="0" width="260" height="180" fill="white" />
           <circle cx={cAx} cy={cy} r={r.a} fill="black" />
         </mask>
-        <mask id={`outside-${preset}`}>
+        <mask id={`outside-${uid}`}>
           <rect x="0" y="0" width="260" height="180" fill="white" />
           <circle cx={cAx} cy={cy} r={r.a} fill="black" />
           <circle cx={cBx} cy={cy} r={r.b} fill="black" />
@@ -121,7 +124,7 @@ export default function VennDiagram({
             rx="10"
             fill={fill}
             opacity={0.28}
-            mask={`url(#outside-${preset})`}
+            mask={`url(#outside-${uid})`}
           />
         </Region>
       )}
@@ -144,7 +147,7 @@ export default function VennDiagram({
             r={r.a}
             fill={fill}
             opacity={0.55}
-            mask={`url(#notB-${preset})`}
+            mask={`url(#notB-${uid})`}
           />
         </Region>
       )}
@@ -156,13 +159,13 @@ export default function VennDiagram({
             r={r.b}
             fill={fill}
             opacity={0.55}
-            mask={`url(#notA-${preset})`}
+            mask={`url(#notA-${uid})`}
           />
         </Region>
       )}
       {flags.inter && (
         <Region animate={animate} delay={0.2}>
-          <g clipPath={`url(#clipA-${preset})`}>
+          <g clipPath={`url(#clipA-${uid})`}>
             <circle cx={cBx} cy={cy} r={r.b} fill={fill} opacity={0.8} />
           </g>
         </Region>
@@ -222,7 +225,7 @@ function Region({
       initial={{ opacity: 0, scale: 0.92 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, delay, ease: "easeOut" }}
-      style={{ transformOrigin: "center" }}
+      style={{ transformOrigin: "center", transformBox: "fill-box" }}
     >
       {children}
     </motion.g>
@@ -251,13 +254,12 @@ function ThreeSetVenn({
   className,
   animate,
 }: Required<Omit<VennDiagramProps, "className">> & { className?: string }) {
+  const uid = useId().replace(/:/g, "");
   const flags = THREE_REGIONS[preset] ?? {};
   const r = 58;
   const A = { x: 100, y: 80 };
   const B = { x: 160, y: 80 };
   const C = { x: 130, y: 132 };
-
-  const id = preset;
 
   return (
     <svg
@@ -267,21 +269,21 @@ function ThreeSetVenn({
       aria-label={`${preset} uch to'plamli Venn diagrammasi`}
     >
       <defs>
-        <clipPath id={`A-${id}`}>
+        <clipPath id={`A-${uid}`}>
           <circle cx={A.x} cy={A.y} r={r} />
         </clipPath>
-        <clipPath id={`B-${id}`}>
+        <clipPath id={`B-${uid}`}>
           <circle cx={B.x} cy={B.y} r={r} />
         </clipPath>
-        <clipPath id={`C-${id}`}>
+        <clipPath id={`C-${uid}`}>
           <circle cx={C.x} cy={C.y} r={r} />
         </clipPath>
       </defs>
 
       {flags.abc && (
         <Region animate={animate}>
-          <g clipPath={`url(#A-${id})`}>
-            <g clipPath={`url(#B-${id})`}>
+          <g clipPath={`url(#A-${uid})`}>
+            <g clipPath={`url(#B-${uid})`}>
               <circle cx={C.x} cy={C.y} r={r} fill={fill} opacity={0.85} />
             </g>
           </g>

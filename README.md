@@ -70,6 +70,42 @@ npm run preview
 
 ---
 
+## 🐳 Tez ishga tushirish — Docker
+
+Loyihada production-ready, multi-stage `Dockerfile` mavjud: ilova `node:20-alpine` da build qilinadi va siqilgan statik fayllar `nginx` orqali tarqatiladi (React Router uchun SPA fallback sozlangan).
+
+### Variant 1 — Docker Compose (tavsiya etiladi)
+
+```bash
+# Image'ni build qilib, konteynerni ishga tushirish
+docker compose up -d --build
+
+# Ilova: http://localhost:8080
+
+# To'xtatish
+docker compose down
+```
+
+### Variant 2 — Docker CLI
+
+```bash
+# Image build qilish
+docker build -t toplamlar-akademiyasi .
+
+# Konteynerni ishga tushirish (8080 -> 80)
+docker run -d -p 8080:80 --name toplamlar-akademiyasi toplamlar-akademiyasi
+
+# Loglarni ko'rish
+docker logs -f toplamlar-akademiyasi
+
+# To'xtatish va o'chirish
+docker rm -f toplamlar-akademiyasi
+```
+
+> **Eslatma:** Portni o'zgartirish uchun `docker-compose.yml` dagi `"8080:80"` ni tahrirlang yoki `docker run -p <host>:80` da boshqa portni bering. Konteyner `HEALTHCHECK` bilan jihozlangan — `docker ps` da sog'liq holati ko'rinadi.
+
+---
+
 ## 📁 Loyiha tuzilmasi
 
 ```

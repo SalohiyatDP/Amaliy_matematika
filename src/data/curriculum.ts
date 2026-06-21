@@ -197,6 +197,72 @@ export const curriculum: Module[] = [
           },
         ],
       },
+      {
+        id: "m1l4",
+        title: "Sonlar to'plamlari va berish usullari",
+        summary: "ℕ, ℤ, ℚ, ℝ to'plamlari va to'plamni berishning ikki usuli.",
+        xp: 55,
+        blocks: [
+          { type: "heading", value: "To'plamni berishning usullari" },
+          {
+            type: "list",
+            items: [
+              "Ro'yxat (sanab o'tish) usuli: barcha elementlar qavs ichida yoziladi — A = {2, 4, 6, 8}.",
+              "Xossa (set-builder) usuli: elementlarni umumiy shart orqali ifodalash — A = {x | x juft va x < 10}.",
+            ],
+          },
+          { type: "formula", value: "A = \\{x \\mid x \\in \\mathbb{N},\\ x < 5\\} = \\{1, 2, 3, 4\\}", caption: "Xossa usulidan ro'yxat usuliga" },
+          { type: "heading", value: "Asosiy sonlar to'plamlari" },
+          {
+            type: "list",
+            items: [
+              "ℕ — natural sonlar: {1, 2, 3, ...}",
+              "ℤ — butun sonlar: {..., −2, −1, 0, 1, 2, ...}",
+              "ℚ — ratsional sonlar: kasr ko'rinishida yozilishi mumkin bo'lgan sonlar (p/q)",
+              "ℝ — haqiqiy sonlar: barcha ratsional va irratsional sonlar",
+            ],
+          },
+          { type: "formula", value: "\\mathbb{N} \\subset \\mathbb{Z} \\subset \\mathbb{Q} \\subset \\mathbb{R}", caption: "Sonlar to'plamlari ichma-ich joylashgan" },
+          {
+            type: "tip",
+            value: "√2 va π — irratsional sonlar: ular ℝ ga tegishli, lekin ℚ ga tegishli emas.",
+          },
+        ],
+        quiz: [
+          {
+            id: "m1l4q1",
+            type: "single",
+            prompt: "Qaysi to'plam butun sonlarni bildiradi?",
+            options: ["ℕ", "ℤ", "ℚ", "ℝ"],
+            answer: 1,
+            explanation: "ℤ (Zahlen) — butun sonlar to'plami: ..., −1, 0, 1, ...",
+            level: 2,
+          },
+          {
+            id: "m1l4q2",
+            type: "single",
+            prompt: "√2 soni qaysi to'plamga tegishli, lekin qaysisiga tegishli emas?",
+            options: [
+              "ℝ ga tegishli, ℚ ga tegishli emas",
+              "ℚ ga tegishli, ℝ ga tegishli emas",
+              "ℕ ga tegishli",
+              "ℤ ga tegishli",
+            ],
+            answer: 0,
+            explanation: "√2 — irratsional son: u haqiqiy (ℝ), lekin ratsional (ℚ) emas.",
+            level: 4,
+          },
+          {
+            id: "m1l4q3",
+            type: "input",
+            prompt: "{x | x ∈ ℕ, x ≤ 4} to'plamini ro'yxat usulida yozing.",
+            expression: "\\{x \\mid x \\in \\mathbb{N},\\ x \\leq 4\\}",
+            answer: "{1, 2, 3, 4}",
+            explanation: "4 dan katta bo'lmagan natural sonlar: {1, 2, 3, 4}.",
+            level: 3,
+          },
+        ],
+      },
     ],
     test: [
       {
@@ -542,6 +608,73 @@ export const curriculum: Module[] = [
             answer: "{1, 4}",
             explanation: "Faqat bittasida bor: 1 (faqat A) va 4 (faqat B) ⇒ {1, 4}.",
             level: 4,
+          },
+        ],
+      },
+      {
+        id: "m3l4",
+        title: "Dekart ko'paytmasi (A × B)",
+        summary: "Tartiblangan juftliklar va A × B amali.",
+        xp: 55,
+        blocks: [
+          { type: "heading", value: "Tartiblangan juftlik" },
+          {
+            type: "text",
+            value:
+              "Tartiblangan juftlik (a, b) — bunda tartib muhim: (1, 2) ≠ (2, 1). Bu to'plamdagi {1, 2} = {2, 1} dan farq qiladi.",
+          },
+          { type: "heading", value: "Dekart ko'paytmasi" },
+          {
+            type: "text",
+            value:
+              "A × B — birinchi komponenti A dan, ikkinchisi B dan olingan barcha tartiblangan juftliklar to'plami.",
+          },
+          { type: "formula", value: "A \\times B = \\{(a, b) \\mid a \\in A,\\ b \\in B\\}" },
+          {
+            type: "example",
+            title: "Misol",
+            body: "A = {1, 2}, B = {x, y} bo'lsa, A × B = {(1, x), (1, y), (2, x), (2, y)}.",
+          },
+          { type: "formula", value: "|A \\times B| = |A| \\cdot |B|", caption: "Juftliklar soni quvvatlar ko'paytmasiga teng" },
+          {
+            type: "tip",
+            value:
+              "Dekart ko'paytmasi koordinatalar tekisligi (ℝ × ℝ), ma'lumotlar bazasidagi CROSS JOIN va munosabatlar (relations) asosidir.",
+          },
+        ],
+        quiz: [
+          {
+            id: "m3l4q1",
+            type: "single",
+            prompt: "|A| = 3, |B| = 4 bo'lsa, |A × B| nechaga teng?",
+            expression: "|A \\times B| = |A| \\cdot |B|",
+            options: ["7", "12", "9", "16"],
+            answer: 1,
+            explanation: "|A × B| = 3 · 4 = 12.",
+            level: 3,
+          },
+          {
+            id: "m3l4q2",
+            type: "truefalse",
+            prompt: "Tartiblangan juftliklarda (1, 2) = (2, 1).",
+            options: ["To'g'ri", "Noto'g'ri"],
+            answer: 1,
+            explanation: "Noto'g'ri. Juftlikda tartib muhim: (1, 2) ≠ (2, 1).",
+            level: 3,
+          },
+          {
+            id: "m3l4q3",
+            type: "single",
+            prompt: "A = {1}, B = {a, b}. A × B = ?",
+            options: [
+              "{(1, a), (1, b)}",
+              "{(a, 1), (b, 1)}",
+              "{1, a, b}",
+              "{(1, a, b)}",
+            ],
+            answer: 0,
+            explanation: "Birinchi komponent A dan (1), ikkinchisi B dan: {(1, a), (1, b)}.",
+            level: 3,
           },
         ],
       },
@@ -997,6 +1130,16 @@ export const curriculum: Module[] = [
             type: "example",
             title: "JavaScript",
             body: "const a = new Set([1,2,3]); const b = new Set([2,3,4]); kesishma = [...a].filter(x => b.has(x)); // [2, 3]",
+          },
+          {
+            type: "example",
+            title: "Python (set amallari)",
+            body: "a = {1,2,3}; b = {2,3,4}  →  a | b = {1,2,3,4} (birlashma), a & b = {2,3} (kesishma), a - b = {1} (ayirma), a ^ b = {1,4} (simmetrik ayirma).",
+          },
+          {
+            type: "tip",
+            value:
+              "Set odatda xesh-jadval (hash table) yordamida amalga oshiriladi — shu sabab element bor-yo'qligini tekshirish o'rtacha O(1) tezlikda bo'ladi. Juda katta to'plamlar uchun Bloom filtri xotirani tejaydi.",
           },
         ],
         quiz: [
